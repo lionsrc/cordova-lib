@@ -125,6 +125,11 @@ function addHelper(cmd, hooksRunner, projectRoot, targets, opts) {
                 var platformPath = path.join(projectRoot, 'platforms', platform);
                 var platformAlreadyAdded = fs.existsSync(platformPath);
 
+                if ( (platform === 'android' && cfg.android_packageName()){
+                    events.emit('log', "Change packageName to " + cfg.android_packageName());
+                    cfg.setPackageName(cfg.android_packageName());
+                }
+                    
                 if (cmd == 'add') {
                     if (platformAlreadyAdded) {
                         throw new CordovaError('Platform ' + platform + ' already added.');
